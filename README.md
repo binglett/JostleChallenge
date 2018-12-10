@@ -1,5 +1,5 @@
 # JostleChallenge
-Single page web-app prototype
+A single page web-app prototype
 
 ## Usage
-Open JostleChallenge/Jostle/war/Jostle.html
+Open "JostleChallenge/Jostle/war/Jostle.html"
