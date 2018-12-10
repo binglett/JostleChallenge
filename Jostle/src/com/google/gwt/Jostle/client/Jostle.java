@@ -21,8 +21,8 @@ public class Jostle implements EntryPoint {
 	private final double[] testValueDoubles = {100.00, 300.00, 150.50};
 	private final String videoUrl = "https://www.youtube.com/embed/DIZxqQl1QJc";
 //	private final String videoUrl = "https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
-	private final String JSONVideoUrl = "http://jsonplaceholder.typicode.com/posts/1";
-	private final String JSONArticleUrl = "http://jsonplaceholder.typicode.com/photos";
+	private final String JSONVideoUrl = "https://jsonplaceholder.typicode.com/posts/1";
+	private final String JSONArticleUrl = "https://jsonplaceholder.typicode.com/photos";
 	
 	private VerticalPanel videoPanelView = new VideoVerticalPanel(videoUrl, JSONVideoUrl);
 	private VerticalPanel articlePanelView = new ArticlesVerticalPanel(JSONArticleUrl);
