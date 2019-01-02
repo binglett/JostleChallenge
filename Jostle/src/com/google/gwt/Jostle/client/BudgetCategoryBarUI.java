@@ -11,11 +11,11 @@ import com.google.gwt.user.client.ui.HTMLPanel;
  * 
  * @author Bonnie
  */
-public class BudgetCategoryUI extends BudgetCategory {
-	private HTMLPanel budgetCategoryBarPanel;
+public class BudgetCategoryBarUI extends BudgetCategory {
+	private HTMLPanel budgetCategoryMeterPanel;
 	private HTMLPanel categoryNamePanel;
 	private HTMLPanel budgetRemainingPanel;
-	private HTMLPanel budgetCategoryBar;
+	private HTMLPanel budgetCategoryMeter;
 	private HTMLPanel budgetPercentLabel;
 
 	public static final NumberFormat nf2 = NumberFormat.getFormat("#.##");
@@ -31,24 +31,24 @@ public class BudgetCategoryUI extends BudgetCategory {
 	public static final String BADPERCENTSTYLE = "badCategoryBarColor";
 	public static final String OVERPERCENTSTYLE = "overCategoryBarColor";
 	
-	public BudgetCategoryUI(String categoryName, double budgetAmount) {
+	public BudgetCategoryBarUI(String categoryName, double budgetAmount) {
 		super(categoryName, budgetAmount);
 
 		nf20 = NumberFormat.getFormat("#.##");
 		nf20.overrideFractionDigits(2);
 		
-		budgetCategoryBar = new HTMLPanel("div", "");
-		budgetCategoryBar.setWidth("" + this.getPercentSpent() + "%");
-		budgetCategoryBar.addStyleName(GOODPERCENTSTYLE);
-		budgetCategoryBar.addStyleName("budgetCategoryBar");
+		budgetCategoryMeter = new HTMLPanel("div", "");
+		budgetCategoryMeter.setWidth("" + this.getPercentSpent() + "%");
+		budgetCategoryMeter.addStyleName(GOODPERCENTSTYLE);
+		budgetCategoryMeter.addStyleName("budgetCategoryMeter");
 		
 		budgetPercentLabel = new HTMLPanel("h3", "" + nf2.format(this.getPercentSpent()) + "%");
 		budgetPercentLabel.addStyleName("budgetPercentLabel");
 		
-		budgetCategoryBarPanel = new HTMLPanel("div", "");
-		budgetCategoryBarPanel.addStyleName("budgetCategoryBarPanel");
-		budgetCategoryBarPanel.add(budgetCategoryBar);
-		budgetCategoryBarPanel.add(budgetPercentLabel);
+		budgetCategoryMeterPanel = new HTMLPanel("div", "");
+		budgetCategoryMeterPanel.addStyleName("budgetCategoryMeterPanel");
+		budgetCategoryMeterPanel.add(budgetCategoryMeter);
+		budgetCategoryMeterPanel.add(budgetPercentLabel);
 		
 		categoryNamePanel = new HTMLPanel("h2", this.getCategoryName());
 		categoryNamePanel.addStyleName("budgetCategoryName");
@@ -57,8 +57,8 @@ public class BudgetCategoryUI extends BudgetCategory {
 		budgetRemainingPanel.addStyleName("budgetRemaining");
 	}
 	
-	public HTMLPanel getBudgetCategoryBarPanel() {		
-		return budgetCategoryBarPanel;
+	public HTMLPanel getbudgetCategoryMeterPanel() {		
+		return budgetCategoryMeterPanel;
 	}
 	
 	public HTMLPanel getBudgetCategoryNamePanel() {
@@ -85,14 +85,14 @@ public class BudgetCategoryUI extends BudgetCategory {
 		}
 		
 		if (this.getPercentSpent() < 0) {
-			this.budgetCategoryBar.setWidth("0");
+			this.budgetCategoryMeter.setWidth("0");
 		}
 		else {
-			this.budgetCategoryBar.setWidth("" + this.getPercentSpent() + "%");
+			this.budgetCategoryMeter.setWidth("" + this.getPercentSpent() + "%");
 		}
 		this.budgetPercentLabel.getElement().setInnerHTML("" + nf2.format(this.getPercentSpent()) + "%");
 		this.budgetRemainingPanel.getElement().setInnerHTML("$" + nf2.format(this.getbudgetRemaining()) + "/$" + nf2.format(this.getBudgetAmount()));
-		setBudgetBarStyleColor(prevPercentSpent, this.getPercentSpent(), budgetCategoryBar);
+		setBudgetBarStyleColor(prevPercentSpent, this.getPercentSpent(), budgetCategoryMeter);
 	}
 	
 	/**
@@ -100,23 +100,23 @@ public class BudgetCategoryUI extends BudgetCategory {
 	 * health of the budget
 	 * @param prevPercent the previous percentage of budget used 
 	 * @param newPercentSpent the current percentage of budget used
-	 * @param budgetCategoryBar the UI element that displays the colors that are 
+	 * @param budgetCategoryMeter the UI element that displays the colors that are 
 	 * 			set in this method 
 	 * */
-	private void setBudgetBarStyleColor(double prevPercent, double newPercentSpent, HTMLPanel budgetCategoryBar) {
+	private void setBudgetBarStyleColor(double prevPercent, double newPercentSpent, HTMLPanel budgetCategoryMeter) {
 		if (GOODPERCENT > prevPercent) {
-			budgetCategoryBar.removeStyleName(GOODPERCENTSTYLE);
+			budgetCategoryMeter.removeStyleName(GOODPERCENTSTYLE);
 		} 
 		else if (GOODPERCENT <= prevPercent && OKAYPERCENT > prevPercent) {
-			budgetCategoryBar.removeStyleName(OKAYPERCENTSTYLE);
+			budgetCategoryMeter.removeStyleName(OKAYPERCENTSTYLE);
 		}
 		else if (OKAYPERCENT <= prevPercent && BADPERCENT > prevPercent) {
-			budgetCategoryBar.removeStyleName(BADPERCENTSTYLE);
+			budgetCategoryMeter.removeStyleName(BADPERCENTSTYLE);
 		} 
 		else {
-			budgetCategoryBar.removeStyleName(OVERPERCENTSTYLE);
+			budgetCategoryMeter.removeStyleName(OVERPERCENTSTYLE);
 		}
-		budgetCategoryBar.addStyleName(getBarValue(newPercentSpent));
+		budgetCategoryMeter.addStyleName(getBarValue(newPercentSpent));
 	}
 	/**
 	 * Helper for setBudgetBarStyleColor that determines the element

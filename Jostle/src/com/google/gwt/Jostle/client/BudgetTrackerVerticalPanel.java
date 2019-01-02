@@ -18,31 +18,41 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
- * Provides a complete UI component that allows a user to track 
- * a list of budget categories and a list of expenses/refunds.
+ * A collection of UI components to show budget categories and their current state
+ * and a list of expense entries. Also includes mechanisms to alter said collection
+ * of categories and entries.
  * 
  * @author Bonnie
  *
  */
 public class BudgetTrackerVerticalPanel extends VerticalPanel {
+
+	
 	public static NumberFormat nf20;
 	
 	private FlowPanel budgetTrackerContainer = new FlowPanel();
+	
 	private FlowPanel budgetCategoriesContainerPanel = new FlowPanel();
 	
 	private FlexTable entriesListContainerPanel = new FlexTable();
 	private ArrayList<BudgetExpenseEntry> expenseEntriesList = new ArrayList<BudgetExpenseEntry>();
 	
 	/**
+	 * Assembles the UI panel 
+	 * 
 	 * NOTE: This constructor is for prototyping purposes, need to make a generic one
-	 * Creates a list of BudgetCategoryUI objects by taking two test arrays 
+	 * Creates a list of BudgetCategoryBarUI objects by taking two test arrays 
 	 * ASSUMES they're of equal length and are considered a pair based on indices. 
 	 *  
 	 * @param categoriesList a list of category names ASSUME same length as doublesList
 	 * @param doublesList a list of budget amounts ASSUME same length as categoriesList
 	 */
-	public BudgetTrackerVerticalPanel(String[] categoriesList, double[] doublesList) {
+	public BudgetTrackerVerticalPanel() {
 		super();
+		
+		// Test dummy data
+		final String[] categoriesList = {"Groceries", "Eating Out", "Clothing"};
+		final double[] doublesList = {100.00, 300.00, 150.50};
 		
 		nf20 = NumberFormat.getFormat("#.##");
 		nf20.overrideFractionDigits(2);
@@ -66,10 +76,12 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 		budgetTrackerContainer.add(this.entriesListContainerPanel);
 		this.add(budgetTrackerContainer);
 	}
+
 	
 	/**
 	 * Helper method for constructor to traverse through the input lists
 	 * and propagate the budgetCategoriesContainerPanel
+	 * 
 	 * @param categoriesList list of category names
 	 * @param doublesList list of category budget amounts
 	 */
@@ -96,7 +108,7 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 	 * @param categoryAmount budget amount
 	 * */
 	public void addCategoryToList(String categoryName, Double categoryAmount) {
-		final BudgetCategoryUI tmp = new BudgetCategoryUI(categoryName, categoryAmount);	
+		final BudgetCategoryBarUI tmp = new BudgetCategoryBarUI(categoryName, categoryAmount);	
 		
 		final Button addEntryButton = new Button("+");
 		addEntryButton.addStyleName("addEntryButton");
@@ -104,7 +116,7 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 		this.budgetCategoriesContainerPanel.add(tmp.getBudgetCategoryNamePanel());
 		this.budgetCategoriesContainerPanel.add(tmp.getBudgetRemainingDecimalPanel());
 		this.budgetCategoriesContainerPanel.add(addEntryButton);
-		this.budgetCategoriesContainerPanel.add(tmp.getBudgetCategoryBarPanel());
+		this.budgetCategoriesContainerPanel.add(tmp.getbudgetCategoryMeterPanel());
 		
 		addEntryButton.addClickHandler(new ClickHandler() {
 			
@@ -126,7 +138,7 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 	 * @param note
 	 */
 	public void addEntryToTable(Date date, String vendor, double transAmount, 
-			BudgetCategoryUI budgetCategory, String transItem, String note) {
+			BudgetCategoryBarUI budgetCategory, String transItem, String note) {
 		String budgetCategoryName = budgetCategory.getCategoryName();
 		// *** Date is deprecated... placeholder for now
 		BudgetExpenseEntry newEntry = 
@@ -231,10 +243,10 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 	/**
 	 * Displays a popup panel that can create a new budget expense/refund entry
 	 */
-	private void addEntryPanel(BudgetCategoryUI budgetCategoryUI) {
+	private void addEntryPanel(BudgetCategoryBarUI BudgetCategoryBarUI) {
 		final PopupPanel popupPanel = new PopupPanel(false);
 		
-		final BudgetCategoryUI finalbudgetCategoryUI = budgetCategoryUI;
+		final BudgetCategoryBarUI finalBudgetCategoryBarUI = BudgetCategoryBarUI;
 		
 		String strObj = new String("");
 		Double douObj = new Double(0);
@@ -278,7 +290,7 @@ public class BudgetTrackerVerticalPanel extends VerticalPanel {
 						trueAmount *= -1;
 					}
 					addEntryToTable(new Date(), vendorTextBox.getText(), trueAmount, 
-							finalbudgetCategoryUI, itemTextBox.getText(), noteTextBox.getText());
+							finalBudgetCategoryBarUI, itemTextBox.getText(), noteTextBox.getText());
 					popupPanel.setVisible(false);
 				} 
 				else {

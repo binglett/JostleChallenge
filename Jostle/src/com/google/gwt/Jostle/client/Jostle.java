@@ -17,8 +17,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
  */
 public class Jostle implements EntryPoint {		
 	/* Default dummy values*/
-	private final String[] testValueStrings = {"Groceries", "Eating Out", "Clothing"};
-	private final double[] testValueDoubles = {100.00, 300.00, 150.50};
+//	private final String[] testValueStrings = {"Groceries", "Eating Out", "Clothing"};
+//	private final double[] testValueDoubles = {100.00, 300.00, 150.50};
 	private final String videoUrl = "https://www.youtube.com/embed/DIZxqQl1QJc";
 //	private final String videoUrl = "https://www.sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4";
 	private final String JSONVideoUrl = "https://jsonplaceholder.typicode.com/posts/1";
@@ -26,7 +26,8 @@ public class Jostle implements EntryPoint {
 	
 	private VerticalPanel videoPanelView = new VideoVerticalPanel(videoUrl, JSONVideoUrl);
 	private VerticalPanel articlePanelView = new ArticlesVerticalPanel(JSONArticleUrl);
-	private VerticalPanel customPanelView = new BudgetTrackerVerticalPanel(testValueStrings, testValueDoubles);
+//	private VerticalPanel customPanelView = new BudgetTrackerVerticalPanel(testValueStrings, testValueDoubles);
+	private VerticalPanel customPanelView = new BudgetTrackerVerticalPanel();
 	private VerticalPanel activePanelView;
 	private HorizontalPanel mainPanel = new HorizontalPanel();
 	
@@ -44,35 +45,35 @@ public class Jostle implements EntryPoint {
 		videoPanelView.setVisible(false);
 		articlePanelView.setVisible(false);
 		customPanelView.setVisible(false);
-		activePanelView = videoPanelView;
+		activePanelView = customPanelView;
 		activePanelView.setVisible(true);
 		
 		mainPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-		mainPanel.add(videoPanelView);
-		mainPanel.add(articlePanelView);
+//		mainPanel.add(videoPanelView);
+//		mainPanel.add(articlePanelView);
 		mainPanel.add(customPanelView);
 		
 		RootPanel.get("mainContainer").add(mainPanel);
-		
-		Button videoPanelToggle = Button.wrap(Document.get().getElementById("viewToggle-1").getFirstChildElement());
-		Button articlePanelToggle = Button.wrap(Document.get().getElementById("viewToggle-2").getFirstChildElement());
-		Button customPanelToggle = Button.wrap(Document.get().getElementById("viewToggle-3").getFirstChildElement());
-		
-		videoPanelToggle.addClickHandler(new ClickHandler() {
-	    	public void onClick(ClickEvent event) {
-	    		toggleView(videoPanelView);
-	    	}
-	    });
-		articlePanelToggle.addClickHandler(new ClickHandler() {
-	    	public void onClick(ClickEvent event) {
-	    		toggleView(articlePanelView);
-	    	}
-	    });
-		customPanelToggle.addClickHandler(new ClickHandler() {
-	    	public void onClick(ClickEvent event) {
-	    		toggleView(customPanelView);
-	    	}
-	    });
+//		
+//		Button videoPanelToggle = Button.wrap(Document.get().getElementById("viewToggle-1").getFirstChildElement());
+//		Button articlePanelToggle = Button.wrap(Document.get().getElementById("viewToggle-2").getFirstChildElement());
+//		Button customPanelToggle = Button.wrap(Document.get().getElementById("viewToggle-3").getFirstChildElement());
+//		
+//		videoPanelToggle.addClickHandler(new ClickHandler() {
+//	    	public void onClick(ClickEvent event) {
+//	    		toggleView(videoPanelView);
+//	    	}
+//	    });
+//		articlePanelToggle.addClickHandler(new ClickHandler() {
+//	    	public void onClick(ClickEvent event) {
+//	    		toggleView(articlePanelView);
+//	    	}
+//	    });
+//		customPanelToggle.addClickHandler(new ClickHandler() {
+//	    	public void onClick(ClickEvent event) {
+//	    		toggleView(customPanelView);
+//	    	}
+//	    });
 	}
 
 	/** 

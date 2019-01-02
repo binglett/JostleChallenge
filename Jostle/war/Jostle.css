@@ -322,7 +322,7 @@ footer {
 	text-align: right;
 	float: right;
 }
-.budgetCategoryBarPanel {
+.budgetCategoryMeterPanel {
 	height: 50px;
 	width: calc(100% - 35px);
 	position: relative;
@@ -331,7 +331,7 @@ footer {
 	border-radius: 0 2px 2px 0;
 	background-color: #545867;
 }
-.budgetCategoryBar {
+.budgetCategoryMeter {
 	height: 100%;	
 }
 .goodCategoryBarColor {
